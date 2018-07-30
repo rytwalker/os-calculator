@@ -1,10 +1,14 @@
 class UI {
   constructor() {
     this.output = document.querySelector('.output');
-    this.inputValues = document.querySelectorAll('.input-value');
     this.clearBtn = document.querySelector('#clearBtn');
-    this.addBtn = document.querySelector('#addBtn');
     this.equalsBtn = document.querySelector('#equalsBtn');
+    // operations
+    this.operations = document.querySelectorAll('.operation');
+    this.addBtn = document.querySelector('#addBtn');
+    this.subtractBtn = document.querySelector('#subtractBtn');
+    this.multiplyBtn = document.querySelector('#multiplyBtn');
+    this.divideBtn = document.querySelector('#divideBtn');
   }
   updateOutput(inputValue) {
     this.output.innerHTML = inputValue;

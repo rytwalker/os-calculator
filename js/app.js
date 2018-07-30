@@ -1,38 +1,9 @@
-class Calculator {
-  constructor() {
-    this.total = 0;
-    this.operation = '';
-  }
-  update(x) {
-    this.total = x;
-  }
-  add(x) {
-    return (this.total = this.total + x);
-  }
-  subtract(x) {
-    return (this.total = this.total - x);
-  }
-  multiply(x) {
-    return (this.total = this.total * x);
-  }
-  divide(x) {
-    return (this.total = this.total / x);
-  }
-  clear() {
-    this.total = 0;
-  }
-}
-
+// Init ui and calculator
 const ui = new UI();
 const calculator = new Calculator();
 
 const inputNumber = document.querySelectorAll('.number');
-const output = document.querySelector('.output');
 const container = document.querySelector('.container');
-
-container.addEventListener('click', e => {
-  console.log(e.target);
-});
 
 inputNumber.forEach(value => {
   value.addEventListener('click', () => {
@@ -55,6 +26,26 @@ inputNumber.forEach(value => {
   });
 });
 
+ui.clearBtn.addEventListener('click', () => {
+  if (ui.clearBtn.textContent === 'AC') {
+    ui.output.textContent = '0';
+    calculator.total = 0;
+    calculator.operation = '';
+    ui.operations.forEach(operation => operation.classList.remove('highlight'));
+  } else if (calculator.total === 0) {
+    ui.output.textContent = '0';
+    ui.clearBtn.textContent = 'AC';
+  } else {
+    calculator.total = 0;
+    calculator.operation = '';
+    ui.output.textContent = '0';
+    ui.clearBtn.textContent = 'AC';
+  }
+});
+
+// OPERATION EVENT LISTENERS
+
+// add
 ui.addBtn.addEventListener('click', () => {
   // show engaged
   ui.addBtn.classList.add('highlight');
@@ -64,49 +55,58 @@ ui.addBtn.addEventListener('click', () => {
   calculator.update(parseInt(ui.output.textContent));
 });
 
+// subtract
+ui.subtractBtn.addEventListener('click', () => {
+  // show engaged
+  ui.subtractBtn.classList.add('highlight');
+  // update operation
+  calculator.operation = '-';
+  // add output value to calculator
+  calculator.update(parseInt(ui.output.textContent));
+});
+
+// multiply
+ui.multiplyBtn.addEventListener('click', () => {
+  // show engaged
+  ui.multiplyBtn.classList.add('highlight');
+  // update operation
+  calculator.operation = '×';
+  // add output value to calculator
+  calculator.update(parseInt(ui.output.textContent));
+});
+
+// divide
+ui.divideBtn.addEventListener('click', () => {
+  // show engaged
+  ui.divideBtn.classList.add('highlight');
+  // update operation
+  calculator.operation = '÷';
+  // add output value to calculator
+  calculator.update(parseInt(ui.output.textContent));
+});
+
+// equals button event listener
 ui.equalsBtn.addEventListener('click', () => {
   if (calculator.operation === '+') {
+    // update total
     calculator.add(parseInt(ui.output.textContent));
+    // update operation to none
+    calculator.operation = '';
+    // show in ui
     ui.output.textContent = calculator.total;
+    // remove highlight class from operation
+    ui.addBtn.classList.remove('highlight');
   } else if (calculator.operation === '-') {
     calculator.subtract(parseInt(ui.output.textContent));
+    ui.output.textContent = calculator.total;
+    ui.subtractBtn.classList.remove('highlight');
   } else if (calculator.operation === '×') {
     calculator.multiply(parseInt(ui.output.textContent));
+    ui.output.textContent = calculator.total;
+    ui.multiplyBtn.classList.remove('highlight');
   } else if (calculator.operation === '÷') {
     calculator.divide(parseInt(ui.output.textContent));
+    ui.output.textContent = calculator.total;
+    ui.divideBtn.classList.remove('highlight');
   }
 });
-
-/*
-
-inputValue.forEach(value => {
-  value.addEventListener('click', e => {
-    let n = '';
-    if (value.textContent === 'C' || value.textContent === 'AC') {
-      calculator.clear();
-      console.log(calculator.total);
-    } else if (value.textContent === '=') {
-      console.log(calculator.total);
-    } else if (value.textContent === '+') {
-      calculator.update(parseInt(ui.output.textContent))
-      calculator.operation('+');
-    } else {
-      // start of new calculation
-      if (ui.output.textContent === '0') {
-        ui.clearOutput();
-        n += value.textContent;
-        output.textContent += n;
-      } else {
-        n += value.textContent;
-        output.textContent += n;
-      }
-
-      // if (calculator.total === 0) {
-      //   calculator.update(n);
-      // }
-    }
-    // console.log(totalber.textContent);
-  });
-});
-
-*/
