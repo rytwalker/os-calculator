@@ -25,22 +25,22 @@ class Calculator {
 
 const calculator = new Calculator();
 
-const numbers = document.querySelectorAll('.number');
+const inputValue = document.querySelectorAll('.input-value');
 const output = document.querySelector('.output');
 
-numbers.forEach(number => {
-  number.addEventListener('click', e => {
+inputValue.forEach(value => {
+  value.addEventListener('click', e => {
     let n = '';
-    if (number.textContent === 'C') {
+    if (value.textContent === 'C' || value.textContent === 'AC') {
       calculator.clear();
       console.log(calculator.num);
-    } else if (number.textContent === '=') {
+    } else if (value.textContent === '=') {
       console.log(calculator.num);
-    } else if (number.textContent === '+') {
+    } else if (value.textContent === '+') {
       calculator.operation('+');
     } else {
-      n += number.textContent;
-      output.innerHTML = n;
+      n += value.textContent;
+      output.textContent += n;
       // if (calculator.num === 0) {
       //   calculator.update(n);
       // }
